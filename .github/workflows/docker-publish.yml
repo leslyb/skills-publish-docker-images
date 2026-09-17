@@ -1,0 +1,26 @@
+name: Docker Publish
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Log in to the CR
+        uses: docker/login-actions@v3
+        with:
+          registry: ghrc.io
+          username: ${{ github.user }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
+        run: |
+          docker build . --tag ghcr.io/leslyb/skills-publish-docker-images/stackoverflown:main
+          docker push ghcr.io/leslyb/skills-publish-docker-images/stackoverflown:main
