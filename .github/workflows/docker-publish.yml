@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Log in to the CR
-        uses: docker/login-actions@v3
+        uses: docker/login-action@v3
         with:
           registry: ghrc.io
           username: ${{ github.user }}
